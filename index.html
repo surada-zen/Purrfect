@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purrfect Pages</title>
+    
+    <!-- Tailwind config MUST go BEFORE the Tailwind CDN script -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'purr-pink-light': '#FFF0F5', // Lavender Blush
+              'purr-pink': '#FFE4E1', // Misty Rose
+              'purr-pink-dark': '#FF69B4', // Hot Pink
+              'purr-text-light': '#574141', // A dark, warm brown
+              'purr-text-dark': '#F8F8F8', // A very light grey for dark mode
+              'purr-bg-dark': '#2C2A3A', // A dark purple-ish color
+              'purr-bg-dark-secondary': '#403E54',
+            }
+          }
+        }
+      }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      /* To have a smooth transition for dark mode */
+      :root.dark {
+        color-scheme: dark;
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.400.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-purr-bg-dark">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
