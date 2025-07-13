@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Note, Category, Theme } from '../types';
 import { NoteList } from './NoteList';
 import { NewNoteIcon, StarIcon, SearchIcon, MoonIcon, SunIcon } from './icons/Icons';
@@ -32,8 +32,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
   theme,
   setTheme,
 }) => {
-  const handleThemeChange = () => {
+  const handleThemeChange = (): void => {
     setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+    onSearch(e.target.value);
   };
 
   const themeIcon =
@@ -44,17 +48,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
     
   const filteredNotes = notes
-    .filter((note) => {
+    .filter((note: Note) => {
       if (categoryFilter === 'all') return true;
       if (categoryFilter === 'favorites') return note.isFavorite;
       return note.category === categoryFilter;
     })
-    .sort((a, b) => b.updatedAt - a.updatedAt);
+    .sort((a: Note, b: Note) => b.updatedAt - a.updatedAt);
 
-  const FilterButton: React.FC<{
+  interface FilterButtonProps {
     value: string;
     label: React.ReactNode;
-  }> = ({ value, label }) => (
+  }
+
+  const FilterButton: React.FC<FilterButtonProps> = ({ value, label }) => (
     <button
       onClick={() => setCategoryFilter(value)}
       className={`px-3 py-1 text-sm rounded-full transition-colors ${
@@ -94,7 +100,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 type="text"
                 placeholder="Search notes..."
                 className="w-full pl-10 pr-4 py-2 rounded-full bg-white/20 dark:bg-black/20 border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400 text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-300"
-                onChange={(e) => onSearch(e.target.value)}
+                onChange={handleSearch}
               />
             </div>
         </div>
