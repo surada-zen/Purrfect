@@ -10,7 +10,7 @@ export const useTheme = (): [Theme, (theme: Theme) => void] => {
     const root = window.document.documentElement;
     const isDark = theme === 'dark';
 
-    root.classList.remove(isDark ? 'light' : 'dark');
+    root.classList.remove(isDark ? 'dark' : 'light');
     root.classList.add(isDark ? 'dark' : 'light');
   }, [theme]);
 

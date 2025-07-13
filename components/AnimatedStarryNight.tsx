@@ -11,9 +11,15 @@ interface Particle {
   alpha: number;
 }
 
-const particleColors = ['#FFF0F5', '#FFE4E1', '#FF69B4', '#FFFFFF'];
+const particleColors = theme === 'dark' 
+  ? ['#FFF0F5', '#FFE4E1', '#FF69B4', '#FFFFFF']
+  : ['#2C2A3A', '#403E54', '#574141', '#302b63'];
 
-const AnimatedStarryNight: React.FC = () => {
+interface AnimatedStarryNightProps {
+  theme: 'light' | 'dark';
+}
+
+const AnimatedStarryNight: React.FC<AnimatedStarryNightProps> = ({ theme }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
@@ -66,9 +72,9 @@ const AnimatedStarryNight: React.FC = () => {
       
       // Keep the nice gradient background
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      gradient.addColorStop(0, '#0f0c29');
-      gradient.addColorStop(0.5, '#302b63');
-      gradient.addColorStop(1, '#24243e');
+      gradient.addColorStop(0, theme === 'dark' ? '#0f0c29' : '#f8f9fa');
+      gradient.addColorStop(0.5, theme === 'dark' ? '#302b63' : '#e9ecef');
+      gradient.addColorStop(1, theme === 'dark' ? '#24243e' : '#dee2e6');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
