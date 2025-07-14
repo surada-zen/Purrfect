@@ -11,8 +11,8 @@ import { createClient } from '@supabase/supabase-js';
 const WelcomeScreen: React.FC<{ hasNotes: boolean }> = ({ hasNotes }) => {
     return (
         <div className="flex-1 flex flex-col justify-center items-center text-center p-6 select-none">
-            <img src="/assets/kitty.png" alt="Purrfect Pages Mascot" className="w-36 h-36 mt-0 mb-0 drop-shadow-lg" />
-            <img src="/assets/pp.png" alt="Purrfect Pages Logo" className="w-80 h-80 -mt-20 -mb-16 drop-shadow-lg" />
+            <img src="/kitty.png" alt="Purrfect Pages Mascot" className="w-36 h-36 mt-0 mb-0 drop-shadow-lg" />
+            <img src="/pp.png" alt="Purrfect Pages Logo" className="w-80 h-80 -mt-20 -mb-16 drop-shadow-lg" />
             <div className="max-w-md bg-white/20 dark:bg-purr-bg-dark-secondary/40 rounded-xl p-4 mt-1 shadow-lg backdrop-blur-md">
                 <h3 className="text-xl font-semibold mb-1 text-[#9a7b94] dark:text-white">About Notepad</h3>
                 <p className="mb-1 text-[#9a7b94] dark:text-white">Purrfect Pages is a lightweight, distraction-free notepad designed to help you capture your thoughts with ease and joy.</p>

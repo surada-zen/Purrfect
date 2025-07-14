@@ -77,7 +77,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside className="w-72 flex-shrink-0 h-full flex flex-col bg-purr-pink-light/20 dark:bg-purr-bg-dark-secondary/40 backdrop-blur-lg text-gray-800 dark:text-gray-200 border-r border-white/10 dark:border-black/20 overflow-hidden" style={theme === 'dark' ? {} : { color: '#9a7b94' }}>
         <div className="h-32 p-4 border-b border-white/20 dark:border-black/20 flex items-center justify-between flex-shrink-0 relative">
             {/* Only the logo, large and high-res */}
-            <img src="/assets/pp.png" alt="Purrfect Pages Logo" className="h-full w-full object-contain mx-auto" />
+            <img src="/pp.png" alt="Purrfect Pages Logo" className="h-full w-full object-contain mx-auto" />
             <button
               onClick={handleThemeChange}
               className="p-2 rounded-full backdrop-blur-md bg-white/30 dark:bg-black/30 border border-white/30 dark:border-black/30 transition-colors text-gray-500 dark:text-gray-200 z-20 text-2xl shadow-sm hover:bg-white/40 dark:hover:bg-black/40"
