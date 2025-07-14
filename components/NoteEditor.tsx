@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Note } from '../types';
 import { ExportIcon } from './icons/Icons';
-import { BongoCat } from './BongoCat';
 
 interface NoteEditorProps {
   note: Note;
@@ -202,7 +201,6 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ note, allCategories, upd
         className="flex-1 w-full bg-transparent focus:outline-none text-lg resize-none text-purr-text-light dark:text-purr-text-dark leading-relaxed 
                    [&:empty]:before:content-[attr(data-placeholder)] [&:empty]:before:text-gray-400 [&:empty]:before:float-left"
       />
-      <BongoCat isTyping={isTyping} />
     </div>
   );
 };

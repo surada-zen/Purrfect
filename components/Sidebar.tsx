@@ -75,11 +75,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside className="w-72 flex-shrink-0 h-full flex flex-col bg-purr-pink-light/20 dark:bg-purr-bg-dark-secondary/40 backdrop-blur-lg text-gray-800 dark:text-gray-200 border-r border-white/10 dark:border-black/20 overflow-hidden">
-        <div className="p-4 border-b border-white/20 dark:border-black/20 flex justify-between items-center flex-shrink-0">
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Purrfect Pages</h1>
+        <div className="h-32 p-4 border-b border-white/20 dark:border-black/20 flex items-center justify-between flex-shrink-0 relative">
+            {/* Only the logo, large and high-res */}
+            <img src="/assets/pp.png" alt="Purrfect Pages Logo" className="h-full w-full object-contain mx-auto" />
             <button
               onClick={handleThemeChange}
-              className="p-2 rounded-full hover:bg-white/20 dark:hover:bg-black/10 transition-colors text-gray-800 dark:text-white"
+              className="p-2 rounded-full hover:bg-white/20 dark:hover:bg-black/10 transition-colors text-gray-800 dark:text-white z-20"
               title={`Theme: ${theme}`}
             >
               {themeIcon}
