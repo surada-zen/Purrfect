@@ -11,15 +11,15 @@ interface Particle {
   alpha: number;
 }
 
-const particleColors = theme === 'dark' 
-  ? ['#FFF0F5', '#FFE4E1', '#FF69B4', '#FFFFFF']
-  : ['#2C2A3A', '#403E54', '#574141', '#302b63'];
-
 interface AnimatedStarryNightProps {
   theme: 'light' | 'dark';
 }
 
 const AnimatedStarryNight: React.FC<AnimatedStarryNightProps> = ({ theme }) => {
+  const particleColors = theme === 'dark' 
+    ? ['#FFF0F5', '#FFE4E1', '#FF69B4', '#FFFFFF']
+    : ['#2C2A3A', '#403E54', '#574141', '#302b63'];
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });

@@ -60,12 +60,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [notes, setNotes] = useLocalStorage<Note[]>('purrfect-notes', []);
-  const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
-  const [theme, setTheme] = useTheme();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('all');
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -163,18 +157,19 @@ export default function App() {
             </button>
         
             <div className="flex-1 flex flex-col">
-        <AnimatedStarryNight theme={theme} />
-        <div className="relative z-10">
-                {activeNote ? (
-                <NoteEditor
-                    key={activeNote.id}
-                    note={activeNote}
-                    allCategories={[...allCategories, 'Uncategorized']}
-                    updateNote={updateNote}
-                />
-                ) : (
-                <WelcomeScreen hasNotes={notes.length > 0} />
-                )}
+                <AnimatedStarryNight theme={theme} />
+                <div className="relative z-10">
+                    {activeNote ? (
+                        <NoteEditor
+                            key={activeNote.id}
+                            note={activeNote}
+                            allCategories={[...allCategories, 'Uncategorized']}
+                            updateNote={updateNote}
+                        />
+                    ) : (
+                        <WelcomeScreen hasNotes={notes.length > 0} />
+                    )}
+                </div>
             </div>
         </div>
       </div>
