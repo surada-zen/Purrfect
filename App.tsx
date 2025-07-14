@@ -124,7 +124,7 @@ export default function App() {
 
   return (
     <div className="h-screen w-screen font-sans text-gray-800 dark:text-gray-200 relative">
-      <AnimatedStarryNight />
+      <AnimatedStarryNight theme={theme} />
       <div className="relative z-10 h-full w-full flex overflow-hidden">
         
         {/* Sidebar container. Animates width, hides overflow. */}
