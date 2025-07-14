@@ -41,7 +41,7 @@ const NoteItem: React.FC<NoteItemProps> = ({ note, isActive, onSelect, onDelete,
             </button>
             <button
             onClick={handleDelete}
-            className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+            className="text-gray-400 hover:text-red-500"
             >
                 <TrashIcon className="w-5 h-5" />
             </button>

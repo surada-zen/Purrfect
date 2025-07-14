@@ -9,45 +9,20 @@ import AnimatedStarryNight from './components/AnimatedStarryNight';
 
 const WelcomeScreen: React.FC<{ hasNotes: boolean }> = ({ hasNotes }) => {
     return (
-        <div className="flex-1 flex flex-col justify-center items-center text-center p-8 select-none text-white">
-            {hasNotes ? (
-                <div className="flex items-center justify-center gap-4 mb-4">
-                    {/* DEBUG: Using a relative path and adding a border to troubleshoot */}
-                    <img src="mascot.png" alt="Purrfect Pages Mascot" className="w-28 h-28 drop-shadow-lg border-4 border-red-500" />
-                    <img src="https://res.cloudinary.com/your-cloud-name/image/upload/your-image-url" alt="Description" className="w-28 h-28 drop-shadow-lg border-4 border-red-500" />
-                    <div className="text-left">
-                        <h2 className="text-4xl font-bold mb-2 drop-shadow-lg" style={{textShadow: '0 2px 10px rgba(255, 105, 180, 0.7)'}}>
-                            Select a note
-                        </h2>
-                        <p className="text-lg text-gray-300 drop-shadow-lg">
-                            Choose a note to continue.
-                        </p>
-                    </div>
-                </div>
-            ) : (
-                <>
-                    <div className="flex items-center justify-center gap-4 mb-4">
-                         {/* DEBUG: Using a relative path and adding a border to troubleshoot */}
-                        <img src="./assets/mascot.png" alt="Purrfect Pages Mascot" className="w-20 h-20 drop-shadow-lg border-4 border-red-500" />
-                        <img src="https://res.cloudinary.com/your-cloud-name/image/upload/your-image-url" alt="Description" className="w-28 h-28 drop-shadow-lg border-4 border-red-500" />
-                        <h2 className="text-4xl font-bold drop-shadow-lg" style={{textShadow: '0 2px 10px rgba(255, 105, 180, 0.7)'}}>
-                            Welcome to Purrfect Pages! 🎀
-                        </h2>
-                    </div>
-
-                    <div className="max-w-md text-left text-lg text-gray-200 mt-4 space-y-2 drop-shadow-lg">
-                        <p>Hello there! This is your new cute and cozy notepad.</p>
-                        <p>Here are a few tips to get you started:</p>
-                        <ul className="list-disc list-inside space-y-1 pl-4">
-                            <li>Create new notes with the '<strong>+ New Note</strong>' button.</li>
-                            <li>Click on a note in the list to edit it.</li>
-                            <li>Use the ⭐ to mark your favorites.</li>
-                            <li>Organize with categories!</li>
-                        </ul>
-                        <p className="text-center pt-4">Happy writing!</p>
-                    </div>
-                </>
-            )}
+        <div className="flex-1 flex flex-col justify-center items-center text-center p-6 select-none">
+            <img src="/assets/kitty.png" alt="Purrfect Pages Mascot" className="w-36 h-36 mt-0 mb-0 drop-shadow-lg" />
+            <img src="/assets/pp.png" alt="Purrfect Pages Logo" className="w-80 h-80 -mt-20 -mb-16 drop-shadow-lg" />
+            <div className="max-w-md bg-white/20 dark:bg-purr-bg-dark-secondary/40 rounded-xl p-4 mt-1 shadow-lg backdrop-blur-md">
+                <h3 className="text-xl font-semibold mb-1 text-[#9a7b94] dark:text-white">About Notepad</h3>
+                <p className="mb-1 text-[#9a7b94] dark:text-white">Purrfect Pages is a lightweight, distraction-free notepad designed to help you capture your thoughts with ease and joy.</p>
+                <ul className="list-disc list-inside text-left space-y-1 pl-4 text-[#9a7b94] dark:text-white">
+                    <li>Create, edit, and delete notes instantly</li>
+                    <li>Organize notes with custom categories</li>
+                    <li>Mark your favorite notes for quick access</li>
+                    <li>Enjoy a beautiful, minimalist, and responsive design</li>
+                    <li>All your notes are saved locally for privacy and speed</li>
+                </ul>
+            </div>
         </div>
     );
 };
@@ -60,6 +35,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [categories, setCategories] = useState<string[]>([]);
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -112,15 +88,30 @@ export default function App() {
     );
   }, [notes, searchQuery]);
 
-  const allCategories = useMemo(() => {
-    const categories = new Set(notes.map(n => n.category));
-    return Array.from(categories).filter(c => c && c !== 'Uncategorized');
-  }, [notes]);
+  // Handler to add a new category
+  const addCategory = useCallback((newCategory: string) => {
+    setCategories((prev) => {
+      if (!prev.includes(newCategory) && newCategory !== 'Uncategorized') {
+        return [...prev, newCategory];
+      }
+      return prev;
+    });
+  }, []);
+
+  // Handler to delete a category and reassign notes
+  const deleteCategory = useCallback((catToDelete: string) => {
+    setCategories((prev) => prev.filter((cat) => cat !== catToDelete));
+    setNotes((prevNotes) => prevNotes.map(note =>
+      note.category === catToDelete ? { ...note, category: 'Uncategorized', updatedAt: Date.now() } : note
+    ));
+  }, [setCategories, setNotes]);
   
   const handleSelectNote = (id: string) => {
     setActiveNoteId(id);
     if(window.innerWidth < 768) setSidebarOpen(false);
   }
+
+  const handleCloseNote = () => setActiveNoteId(null);
 
   return (
     <div className="h-screen w-screen font-sans text-gray-800 dark:text-gray-200 relative">
@@ -131,7 +122,7 @@ export default function App() {
         <div className={`flex-shrink-0 h-full transition-all duration-300 ease-in-out overflow-hidden ${isSidebarOpen ? 'w-72' : 'w-0'}`}>
             <Sidebar
                 notes={filteredNotesBySearch}
-                categories={[...allCategories, 'Uncategorized']}
+                categories={[...categories, 'Uncategorized']}
                 activeNoteId={activeNoteId}
                 onAddNote={addNote}
                 onSelectNote={handleSelectNote}
@@ -163,11 +154,15 @@ export default function App() {
                         <NoteEditor
                             key={activeNote.id}
                             note={activeNote}
-                            allCategories={[...allCategories, 'Uncategorized']}
+                            allCategories={[...categories, 'Uncategorized']}
+                            addCategory={addCategory}
+                            onDeleteCategory={deleteCategory}
                             updateNote={updateNote}
+                            theme={theme}
+                            onCloseNote={handleCloseNote}
                         />
                     ) : (
-                        <WelcomeScreen hasNotes={notes.length > 0} />
+                        <WelcomeScreen hasNotes={false} />
                     )}
                 </div>
             </div>
