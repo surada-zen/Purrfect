@@ -20,8 +20,10 @@ const AnimatedStarryNight: React.FC<AnimatedStarryNightProps> = ({ theme }) => {
     <div
       className="fixed inset-0 w-full h-full -z-10 pointer-events-none transition-colors duration-1000"
       style={{
-        background: `${theme === 'dark' ? DARK_GRADIENT : LIGHT_GRADIENT}, ${theme === 'dark' ? PATTERN_DARK : PATTERN_LIGHT}`,
-        backgroundSize: '48px 48px',
+        background: theme === 'dark'
+          ? DARK_GRADIENT
+          : `${LIGHT_GRADIENT}, ${PATTERN_LIGHT}`,
+        backgroundSize: theme === 'dark' ? undefined : '48px 48px',
         transition: 'background 1s',
       }}
     />
