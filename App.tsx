@@ -37,44 +37,7 @@ export default function App() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [categories, setCategories] = useState<string[]>([]);
-  const [user, setUser] = useState(null);
-  const [authEmail, setAuthEmail] = useState('');
-  const [authLoading, setAuthLoading] = useState(false);
-
-  // Supabase config
-  const supabaseUrl = 'https://irrkyfvzljlapmewcdhv.supabase.co';
-  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlycmt5ZnZ6bGpsYXBtZXdjZGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1Mjg4NjEsImV4cCI6MjA2ODEwNDg2MX0.oYzLHizO4PZvifxyTKI5GAqfrmn8-E92FLlgjFf2tBo';
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-  useEffect(() => {
-    // Check for user on mount
-    const session = supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-    // Listen for auth changes
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-    return () => {
-      listener?.subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email: authEmail });
-    setAuthLoading(false);
-    if (error) {
-      alert('Login error: ' + error.message);
-    } else {
-      alert('Check your email for the magic link!');
-    }
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
+  // Removed user, authEmail, authLoading, Supabase config, and related effects/handlers
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -155,26 +118,6 @@ export default function App() {
   return (
     <div className="h-screen w-screen font-sans text-gray-800 dark:text-gray-200 relative">
       <AnimatedStarryNight theme={theme} />
-      <div className="absolute top-4 right-4 z-50">
-        {user ? (
-          <button onClick={handleLogout} className="px-4 py-2 bg-pink-400 text-white rounded shadow hover:bg-pink-500 transition">Logout</button>
-        ) : (
-          <form onSubmit={handleLogin} className="flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 p-2 rounded shadow">
-            <input
-              type="email"
-              placeholder="Email"
-              value={authEmail}
-              onChange={e => setAuthEmail(e.target.value)}
-              className="px-2 py-1 rounded border border-gray-300 focus:outline-none focus:ring"
-              required
-              disabled={authLoading}
-            />
-            <button type="submit" disabled={authLoading} className="px-3 py-1 bg-blue-400 text-white rounded hover:bg-blue-500 transition">
-              {authLoading ? 'Sending...' : 'Login'}
-            </button>
-          </form>
-        )}
-      </div>
       <div className="relative z-10 h-full w-full flex overflow-hidden">
         
         {/* Sidebar container. Animates width, hides overflow. */}
