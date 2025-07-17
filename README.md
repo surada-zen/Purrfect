@@ -143,4 +143,4 @@ git push -u origin main
 ---
 
 for icons from lucide-react for logos.
-npm install --save-dev @types/react
+npm install --save-dev @types/react.
